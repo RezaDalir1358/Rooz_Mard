@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>روز مرد | رفاقت با مرد کار</title>
+<title>روزت مبارک آقا رضا</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -11,169 +11,188 @@
   src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font/dist/Vazir.woff');
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Vazir;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Vazir;
 }
 
-body {
-  color: #fff;
-  overflow: hidden;
+body{
+  background:#000;
+  color:#fff;
+  overflow:hidden;
 }
 
-/* ویدئو پس‌زمینه */
-video {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(8px) brightness(0.4);
-  z-index: -2;
+/* ویدیو */
+video{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:blur(7px) brightness(0.3);
+  z-index:-10;
 }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: -1;
+/* لایه تاریک */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+  z-index:-9;
 }
 
-/* بسم الله */
-.besmellah {
-  text-align: center;
-  padding: 15px;
-  font-size: 18px;
-  opacity: 0;
-  animation: fade 2s forwards;
+/* بارون */
+.rain{
+  position:fixed;
+  inset:0;
+  background:url("https://i.imgur.com/NM8YQbX.png");
+  animation:rain 0.3s linear infinite;
+  opacity:0.45;
+  z-index:-8;
+}
+@keyframes rain{
+  to{background-position:-40px 120px;}
 }
 
-@keyframes fade {
-  to {opacity:1;}
+/* مه */
+.fog{
+  position:fixed;
+  inset:0;
+  background:url("https://i.imgur.com/6QJjYMe.png");
+  background-size:cover;
+  animation:fog 60s linear infinite;
+  opacity:0.25;
+  z-index:-7;
+}
+@keyframes fog{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
 }
 
-/* کانتینر */
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  height: calc(100vh - 60px);
-  gap: 30px;
-  padding: 20px;
+/* ذرات نور */
+.particles span{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:rgba(255,255,255,0.6);
+  border-radius:50%;
+  animation:float 12s infinite;
+}
+@keyframes float{
+  from{transform:translateY(100vh) scale(0);}
+  to{transform:translateY(-10vh) scale(1);}
+}
+
+/* تیتر */
+.header{
+  margin-top:25px;
+  text-align:center;
+  font-size:32px;
+  font-weight:bold;
+  text-shadow:0 0 20px rgba(255,255,255,0.6);
+  animation:fadeDown 1.8s ease forwards;
+}
+@keyframes fadeDown{
+  from{opacity:0; transform:translateY(-40px);}
+  to{opacity:1;}
+}
+
+/* محتوا */
+.container{
+  height:calc(100vh - 120px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:40px;
+  padding:20px;
+  flex-wrap:wrap;
 }
 
 /* کارت */
-.card {
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(12px);
-  border-radius: 25px;
-  padding: 30px;
-  max-width: 520px;
-  width: 100%;
-  box-shadow: 0 0 35px rgba(255,255,255,0.15);
-  animation: slide 1.5s forwards;
+.card{
+  background:rgba(255,255,255,0.14);
+  backdrop-filter:blur(18px);
+  border-radius:30px;
+  padding:40px;
+  max-width:520px;
+  box-shadow:0 0 60px rgba(255,255,255,0.25);
+  text-align:center;
+  animation:zoom 1.6s ease forwards;
+}
+@keyframes zoom{
+  from{opacity:0; transform:scale(0.85);}
+  to{opacity:1;}
 }
 
-@keyframes slide {
-  from {opacity:0; transform: translateY(30px);}
-  to {opacity:1;}
-}
-
-/* متن */
-.text {
-  font-size: 22px;
-  line-height: 1.9;
-  text-align: center;
+.text{
+  font-size:22px;
+  line-height:2.1;
 }
 
 /* عکس */
-.photo {
-  width: 220px;
-  border-radius: 22px;
-  animation: float 4s infinite;
-  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+.photo{
+  width:240px;
+  border-radius:30px;
+  box-shadow:0 0 50px rgba(0,0,0,0.8);
+  animation:floatPic 5s ease-in-out infinite;
 }
-
-@keyframes float {
-  50% {transform: translateY(-12px);}
+@keyframes floatPic{
+  50%{transform:translateY(-18px);}
 }
 
 /* دکمه موزیک */
-.music-btn {
-  margin: 25px auto 0;
-  display: block;
-  background: rgba(255,255,255,0.25);
-  border: none;
-  padding: 12px 30px;
-  border-radius: 30px;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: 0.3s;
+.music-btn{
+  margin-top:30px;
+  padding:15px 45px;
+  font-size:18px;
+  border:none;
+  border-radius:40px;
+  cursor:pointer;
+  background:linear-gradient(45deg,#43cea2,#185a9d);
+  color:#fff;
+  box-shadow:0 0 25px rgba(67,206,162,0.7);
+  transition:0.4s;
+}
+.music-btn:hover{transform:scale(1.1);}
+.music-btn.playing{animation:pulse 1.1s infinite;}
+@keyframes pulse{
+  50%{transform:scale(1.15);}
 }
 
-.music-btn:hover {
-  background: rgba(255,255,255,0.4);
+/* پایین */
+.footer{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(16px);
+  padding:18px 36px;
+  border-radius:28px;
+  text-align:center;
+  box-shadow:0 0 35px rgba(255,255,255,0.25);
 }
 
-.music-btn.playing {
-  animation: pulse 1.2s infinite;
+.heart{
+  font-size:30px;
+  color:#ff4d4d;
+  animation:beat 1s infinite;
+}
+@keyframes beat{
+  50%{transform:scale(1.5);}
 }
 
-@keyframes pulse {
-  50% { transform: scale(1.08); }
+.clock{
+  margin-top:10px;
+  font-size:14px;
+  opacity:0.85;
 }
 
-/* تقویم پایین */
-.calendar {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(14px);
-  border-radius: 22px;
-  padding: 15px 30px;
-  text-align: center;
-  animation: fade 2s forwards;
-}
-
-.calendar .date {
-  font-size: 17px;
-  opacity: 0.9;
-}
-
-.heart {
-  font-size: 26px;
-  color: red;
-  animation: beat 1s infinite;
-}
-
-@keyframes beat {
-  50% {transform: scale(1.3);}
-}
-
-.dedicate {
-  margin-top: 6px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-/* ساعت */
-.clock {
-  margin-top: 15px;
-  font-size: 15px;
-  opacity: 0.85;
-}
-
-/* موبایل */
 @media(max-width:768px){
-  .text {font-size: 18px;}
-  .photo {width: 180px;}
+  .text{font-size:18px;}
+  .photo{width:190px;}
 }
 </style>
 </head>
@@ -183,55 +202,66 @@ video {
 <video autoplay muted loop>
   <source src="Video/VID_20260103_051125_812.mp4" type="video/mp4">
 </video>
+
 <div class="overlay"></div>
+<div class="rain"></div>
+<div class="fog"></div>
+
+<div class="particles">
+  <span style="left:10%; animation-delay:0s"></span>
+  <span style="left:30%; animation-delay:3s"></span>
+  <span style="left:50%; animation-delay:6s"></span>
+  <span style="left:70%; animation-delay:2s"></span>
+  <span style="left:90%; animation-delay:5s"></span>
+</div>
 
 <audio id="music" loop>
-  <source src="Music/pas-az-baran.mp3" type="audio/mpeg">
+  <source src="Audio/pas-az-baran.mp3" type="audio/mpeg">
 </audio>
 
-<div class="besmellah">بِسمِ‌اللهِ الرَّحمنِ الرَّحیم</div>
+<div class="header">🌿 روزت مبارک آقا رضا 🌿</div>
 
 <div class="container">
   <div class="card">
     <div class="text">
-      «رفاقت با مردِ کار، افتخاره…<br>
-      با مردی که با دست‌های خودش<br>
-      زندگی می‌سازه.»<br><br>
-      <b>روز مرد مبارک 🌿</b>
+      مردِ کار،<br>
+      زیر بارونم وایمیسته<br>
+      چون زندگی رو با غیرت می‌سازه 🌧<br><br>
+      <b>روز مرد مبارک</b>
     </div>
 
-    <button class="music-btn" onclick="playMusic()">▶️ پخش آهنگ</button>
+    <button class="music-btn" onclick="playMusic()">🎵 پخش آهنگ</button>
     <div class="clock" id="clock"></div>
   </div>
 
   <img src="Image/IMG_20260103_015659_114.jpg" class="photo">
 </div>
 
-<div class="calendar">
-  <div class="date">۱۳ دی ۱۴۰۴</div>
+<div class="footer">
+  <div>۱۳ دی ۱۴۰۴</div>
   <div class="heart">❤️</div>
-  <div class="dedicate">روزت مبارک آقا رضا</div>
+  <div>به افتخار مردای رشتی</div>
 </div>
 
 <script>
-const music = document.getElementById('music');
-const btn = document.querySelector('.music-btn');
+const music=document.getElementById("music");
+const btn=document.querySelector(".music-btn");
 
 function playMusic(){
-  if (music.paused) {
+  if(music.paused){
     music.play();
-    btn.innerText = "🎶 در حال پخش...";
+    btn.innerText="🎶 در حال پخش...";
     btn.classList.add("playing");
-  } else {
+  }else{
     music.pause();
-    btn.innerText = "▶️ پخش آهنگ";
+    btn.innerText="🎵 پخش آهنگ";
     btn.classList.remove("playing");
   }
 }
 
 function clock(){
-  const t = new Date().toLocaleTimeString('fa-IR',{timeZone:'Asia/Tehran'});
-  document.getElementById('clock').innerText = "ساعت ایران: " + t;
+  const t=new Date().toLocaleTimeString("fa-IR",{timeZone:"Asia/Tehran"});
+  document.getElementById("clock").innerText="ساعت ایران: "+t;
 }
 setInterval(clock,1000);
 clock();
