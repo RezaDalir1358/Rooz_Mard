@@ -23,7 +23,7 @@ body {
   overflow: hidden;
 }
 
-/* ویدئو */
+/* ویدئو پس‌زمینه */
 video {
   position: fixed;
   inset: 0;
@@ -65,15 +65,15 @@ video {
   padding: 20px;
 }
 
-/* کارت شیشه‌ای */
+/* کارت */
 .card {
   background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   border-radius: 25px;
-  padding: 25px;
+  padding: 30px;
   max-width: 520px;
   width: 100%;
-  box-shadow: 0 0 30px rgba(255,255,255,0.15);
+  box-shadow: 0 0 35px rgba(255,255,255,0.15);
   animation: slide 1.5s forwards;
 }
 
@@ -92,8 +92,9 @@ video {
 /* عکس */
 .photo {
   width: 220px;
-  border-radius: 20px;
+  border-radius: 22px;
   animation: float 4s infinite;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
 }
 
 @keyframes float {
@@ -102,40 +103,52 @@ video {
 
 /* دکمه موزیک */
 .music-btn {
-  margin-top: 20px;
-  background: rgba(255,255,255,0.2);
+  margin: 25px auto 0;
+  display: block;
+  background: rgba(255,255,255,0.25);
   border: none;
-  padding: 10px 25px;
+  padding: 12px 30px;
   border-radius: 30px;
   color: #fff;
+  font-size: 16px;
   cursor: pointer;
   backdrop-filter: blur(10px);
   transition: 0.3s;
 }
 
 .music-btn:hover {
-  background: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.4);
 }
 
-/* تقویم */
+.music-btn.playing {
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.08); }
+}
+
+/* تقویم پایین */
 .calendar {
   position: absolute;
   bottom: 20px;
-  left: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 15px 20px;
+  backdrop-filter: blur(14px);
+  border-radius: 22px;
+  padding: 15px 30px;
   text-align: center;
   animation: fade 2s forwards;
 }
 
 .calendar .date {
-  font-size: 18px;
+  font-size: 17px;
+  opacity: 0.9;
 }
 
 .heart {
-  font-size: 28px;
+  font-size: 26px;
   color: red;
   animation: beat 1s infinite;
 }
@@ -144,11 +157,17 @@ video {
   50% {transform: scale(1.3);}
 }
 
+.dedicate {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 /* ساعت */
 .clock {
   margin-top: 15px;
-  font-size: 16px;
-  opacity: 0.9;
+  font-size: 15px;
+  opacity: 0.85;
 }
 
 /* موبایل */
@@ -167,7 +186,7 @@ video {
 <div class="overlay"></div>
 
 <audio id="music" loop>
-  <source src="Music/Fereydoun PoorReza - Pas Az Baran.mp3" type="audio/mpeg">
+  <source src="Music/pas-az-baran.mp3" type="audio/mpeg">
 </audio>
 
 <div class="besmellah">بِسمِ‌اللهِ الرَّحمنِ الرَّحیم</div>
@@ -181,7 +200,7 @@ video {
       <b>روز مرد مبارک 🌿</b>
     </div>
 
-    <button class="music-btn" onclick="playMusic()">🎵 پخش آهنگ</button>
+    <button class="music-btn" onclick="playMusic()">▶️ پخش آهنگ</button>
     <div class="clock" id="clock"></div>
   </div>
 
@@ -190,12 +209,24 @@ video {
 
 <div class="calendar">
   <div class="date">۱۳ دی ۱۴۰۴</div>
-  <div class="heart">❤️ روز مرد</div>
+  <div class="heart">❤️</div>
+  <div class="dedicate">روزت مبارک آقا رضا</div>
 </div>
 
 <script>
+const music = document.getElementById('music');
+const btn = document.querySelector('.music-btn');
+
 function playMusic(){
-  document.getElementById('music').play();
+  if (music.paused) {
+    music.play();
+    btn.innerText = "🎶 در حال پخش...";
+    btn.classList.add("playing");
+  } else {
+    music.pause();
+    btn.innerText = "▶️ پخش آهنگ";
+    btn.classList.remove("playing");
+  }
 }
 
 function clock(){
