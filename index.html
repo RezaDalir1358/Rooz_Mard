@@ -6,17 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-@font-face {
-  font-family: Vazir;
-  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font/dist/Vazir.woff');
+@font-face{
+  font-family:Vazir;
+  src:url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font/dist/Vazir.woff');
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Vazir;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Vazir}
 
 body{
   background:#000;
@@ -24,138 +19,141 @@ body{
   overflow:hidden;
 }
 
-/* ویدئو – ماتِ کم */
+/* ویدیو */
 video{
   position:fixed;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:blur(3px) brightness(0.45);
-  z-index:-5;
+  filter:blur(4px) brightness(.4);
+  z-index:-6;
 }
 
 .overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.45);
-  z-index:-4;
+  background:radial-gradient(circle at top,rgba(255,255,255,.08),rgba(0,0,0,.85));
+  z-index:-5;
 }
 
-/* بارون */
+/* افکت نور */
+.light{
+  position:fixed;
+  inset:-50%;
+  background:conic-gradient(from 0deg,#ffffff10,#7fffd430,#ffffff10);
+  animation:rotate 18s linear infinite;
+  z-index:-4;
+}
+@keyframes rotate{to{transform:rotate(360deg)}}
+
+/* باران */
 .rain{
   position:fixed;
   inset:0;
   background:url("https://i.imgur.com/NM8YQbX.png");
-  animation:rain 0.35s linear infinite;
-  opacity:0.4;
+  animation:rain .35s linear infinite;
+  opacity:.35;
   z-index:-3;
 }
-@keyframes rain{
-  to{background-position:-30px 120px;}
-}
+@keyframes rain{to{background-position:-30px 120px}}
 
-/* تیتر */
 .header{
-  margin-top:22px;
+  margin-top:24px;
   text-align:center;
-  font-size:28px;
-  font-weight:bold;
-  animation:fadeDown 1.4s ease forwards;
+  font-size:30px;
+  text-shadow:0 0 25px #7fffd4;
+  animation:fadeDown 1.5s ease forwards;
 }
 @keyframes fadeDown{
-  from{opacity:0; transform:translateY(-25px);}
-  to{opacity:1;}
+  from{opacity:0;transform:translateY(-30px)}
+  to{opacity:1}
 }
 
-/* محتوا */
 .container{
-  height:calc(100vh - 160px);
+  height:calc(100vh - 170px);
   display:flex;
-  align-items:center;
-  justify-content:center;
   flex-direction:column;
+  justify-content:center;
+  align-items:center;
   gap:30px;
 }
 
-/* عکس دایره‌ای بدون متن */
+/* عکس */
 .photo{
   width:230px;
   height:230px;
   border-radius:50%;
   object-fit:cover;
-  box-shadow:
-    0 0 30px rgba(255,255,255,0.35),
-    inset 0 0 25px rgba(255,255,255,0.2);
+  box-shadow:0 0 45px #7fffd480;
   animation:float 5s ease-in-out infinite;
 }
-@keyframes float{
-  50%{transform:translateY(-18px);}
-}
+@keyframes float{50%{transform:translateY(-18px)}}
 
-/* دکمه موزیک فقط آیکن */
+/* دکمه موزیک */
 .music-btn{
-  width:70px;
-  height:70px;
+  width:80px;
+  height:80px;
   border-radius:50%;
   border:none;
   cursor:pointer;
-  background:rgba(255,255,255,0.2);
-  backdrop-filter:blur(12px);
-  font-size:30px;
+  font-size:32px;
   color:#fff;
-  animation:wave 2s infinite;
+  background:linear-gradient(135deg,#7fffd4,#ffffff40);
+  box-shadow:0 0 25px #7fffd4;
+  animation:pulse 2s infinite;
 }
-@keyframes wave{
-  0%,100%{box-shadow:0 0 15px #fff;}
-  50%{box-shadow:0 0 35px #7fffd4;}
+@keyframes pulse{
+  50%{box-shadow:0 0 50px #7fffd4}
 }
 
 .music-btn.playing{
-  animation:spin 2.5s linear infinite;
+  animation:spin 3s linear infinite;
 }
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ساعت */
 .clock{
-  font-size:14px;
-  opacity:0.85;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 22px;
+  border-radius:22px;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 20px #ffffff40;
+  font-size:15px;
 }
 
-/* تقویم پایین */
+/* تقویم */
 .calendar{
   position:absolute;
   bottom:20px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(255,255,255,0.18);
-  backdrop-filter:blur(15px);
-  padding:16px 34px;
-  border-radius:26px;
+  background:linear-gradient(135deg,#ffffff30,#7fffd430);
+  backdrop-filter:blur(18px);
+  padding:18px 40px;
+  border-radius:30px;
   text-align:center;
+  box-shadow:0 0 35px #7fffd470;
   animation:fadeUp 1.8s ease forwards;
 }
 @keyframes fadeUp{
-  from{opacity:0; transform:translate(-50%,25px);}
-  to{opacity:1; transform:translate(-50%,0);}
+  from{opacity:0;transform:translate(-50%,25px)}
+  to{opacity:1;transform:translate(-50%,0)}
 }
 
-.calendar .date{
-  font-size:17px;
-}
+.calendar .date{font-size:18px}
 .calendar .heart{
-  font-size:26px;
+  font-size:28px;
   color:red;
   animation:beat 1s infinite;
 }
-@keyframes beat{
-  50%{transform:scale(1.4);}
-}
+@keyframes beat{50%{transform:scale(1.4)}}
 
 @media(max-width:768px){
-  .photo{width:180px;height:180px;}
+  .photo{width:180px;height:180px}
 }
 </style>
 </head>
@@ -167,6 +165,7 @@ video{
 </video>
 
 <div class="overlay"></div>
+<div class="light"></div>
 <div class="rain"></div>
 
 <audio id="music" loop>
@@ -178,8 +177,11 @@ video{
 <div class="container">
   <img src="Image/IMG_20260103_015659_114.jpg" class="photo">
 
-  <button class="music-btn" onclick="playMusic()">🎶</button>
-  <div class="clock" id="clock"></div>
+  <button class="music-btn" onclick="toggleMusic()">🎶</button>
+
+  <div class="clock">
+    ⏰ <span id="clock"></span>
+  </div>
 </div>
 
 <div class="calendar">
@@ -192,7 +194,7 @@ video{
 const music=document.getElementById("music");
 const btn=document.querySelector(".music-btn");
 
-function playMusic(){
+function toggleMusic(){
   if(music.paused){
     music.play();
     btn.classList.add("playing");
@@ -202,12 +204,12 @@ function playMusic(){
   }
 }
 
-function clock(){
+function updateClock(){
   const t=new Date().toLocaleTimeString("fa-IR",{timeZone:"Asia/Tehran"});
   document.getElementById("clock").innerText="ساعت ایران: "+t;
 }
-setInterval(clock,1000);
-clock();
+setInterval(updateClock,1000);
+updateClock();
 </script>
 
 </body>
