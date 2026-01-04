@@ -4,258 +4,288 @@
 <meta charset="UTF-8" />
 <title>روزت مبارک آقا رضا</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <style>
-  @font-face{
-    font-family:Vazir;
-    src:url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font/dist/Vazir.woff');
-  }
-  *{box-sizing:border-box;margin:0;padding:0;font-family:Vazir}
-  body{
-    background:#000;
-    color:#fff;
-    overflow:hidden;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
+@font-face{
+  font-family:Vazir;
+  src:url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font/dist/Vazir.woff');
+}
 
-  /* پس‌زمینه ویدئو (اگر ویدیو موجود نبود، مشکی نمایش داده می‌شود) */
-  video{
-    position:fixed; inset:0; width:100%; height:100%; object-fit:cover;
-    filter:blur(3px) brightness(.45); z-index:-5;
-  }
-  .overlay{
-    position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:-4;
-  }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Vazir;
+}
 
-  /* تیتر */
-  .header{
-    margin-top:20px; text-align:center; font-size:28px; letter-spacing:.6px;
-    text-shadow:0 2px 20px rgba(0,0,0,.6);
-  }
+body{
+  background:#000;
+  color:#fff;
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
 
-  .container{
-    height:calc(100vh - 160px);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px;
-  }
+/* ویدیو بک‌گراند */
+video{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:blur(3px) brightness(.45);
+  z-index:-5;
+}
 
-  /* عکس دایره‌ای */
-  .photo{
-    width:220px; height:220px; border-radius:50%; object-fit:cover;
-    box-shadow:0 0 40px rgba(255,255,255,.12), inset 0 0 18px rgba(255,255,255,.06);
-    animation:float 5s ease-in-out infinite;
-  }
-  @keyframes float{50%{transform:translateY(-12px)}}
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:-4;
+}
 
-  /* ---------- دکمه موزیک (استیکر-پاپ) ---------- */
-  .music-btn{
-    position:relative;
-    width:84px; height:84px;
-    border-radius:50%;
-    border:none;
-    cursor:pointer;
-    background:rgba(255,255,255,.12);
-    color:#fff;
-    font-size:32px;
-    display:grid; place-items:center;
-    box-shadow:0 6px 20px rgba(0,0,0,.6);
-    transition:transform .12s ease, box-shadow .18s ease;
-    overflow:hidden;
-  }
+/* تیتر */
+.header{
+  margin-top:20px;
+  text-align:center;
+  font-size:28px;
+  text-shadow:0 2px 20px rgba(0,0,0,.6);
+}
 
-  /* لمس/پاپ کوتاه */
-  .music-btn:active{
-    transform:scale(.92);
-  }
+/* کانتینر */
+.container{
+  height:calc(100vh - 160px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:24px;
+}
 
-  /* ripple (موج ضربه) */
-  .music-btn::after{
-    content:"";
-    position:absolute;
-    left:50%; top:50%;
-    width:0; height:0;
-    border-radius:50%;
-    background:rgba(255,255,255,.28);
-    transform:translate(-50%,-50%);
-    opacity:0;
-    pointer-events:none;
-  }
-  .music-btn.ripple::after{
-    animation:ripple .55s ease-out;
-  }
-  @keyframes ripple{
-    from{width:0;height:0;opacity:.7}
-    to{width:240px;height:240px;opacity:0}
-  }
+/* عکس */
+.photo{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 0 40px rgba(255,255,255,.12);
+  animation:float 5s ease-in-out infinite;
+}
+@keyframes float{
+  50%{transform:translateY(-12px)}
+}
 
-  /* حالت پخش: پالسه نرم دور دکمه (بدون چرخش) */
-  .music-btn.playing{
-    animation:playPulse 1.6s infinite;
-    box-shadow:0 12px 40px rgba(255,255,255,.06);
-  }
-  @keyframes playPulse{
-    0%{transform:scale(1); box-shadow:0 8px 26px rgba(255,255,255,.05)}
-    50%{transform:scale(1.02); box-shadow:0 18px 60px rgba(255,255,255,.08)}
-    100%{transform:scale(1); box-shadow:0 8px 26px rgba(255,255,255,.05)}
-  }
+/* ===== دکمه موزیک ===== */
+.music-btn{
+  position:relative;
+  width:84px;
+  height:84px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  font-size:32px;
+  display:grid;
+  place-items:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.6);
+  transition:transform .15s ease, box-shadow .15s ease;
+  overflow:hidden;
 
-  /* ساعت */
-  .clock{
-    padding:10px 20px; border-radius:20px;
-    background:rgba(255,255,255,.12); backdrop-filter:blur(8px);
-    font-size:14px; box-shadow:0 8px 30px rgba(0,0,0,.6);
-  }
+  /* حذف مربع آبی موبایل */
+  -webkit-tap-highlight-color: transparent;
+  outline:none;
+}
+.music-btn:focus{outline:none;}
 
-  /* ---------- تقویم وسط پایین با حلقه چرخان ---------- */
-  .mini-calendar{
-    position:fixed;
-    bottom:18px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:20;
-    color:#fff;
-    text-align:center;
-    font-size:12px;
-    padding:10px 14px;
-    /* نیمه‌شفاف برای خوانایی */
-    background:rgba(0,0,0,.35);
-    border-radius:14px;
-    backdrop-filter:blur(6px);
-    box-shadow:0 10px 40px rgba(0,0,0,.7);
-    min-width:170px;
-  }
+.music-btn:active{
+  transform:scale(.9);
+  box-shadow:0 4px 14px rgba(0,0,0,.8);
+}
 
-  /* حلقهٔ ظریف دور تقویم (pseudo) */
-  .mini-calendar::before{
-    content:"";
-    position:absolute;
-    left:50%; bottom:-8px;
-    transform:translateX(-50%);
-    width:150px; height:150px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,.06);
-    z-index:-1;
-    animation:rotateRing 9s linear infinite;
-    pointer-events:none;
-  }
-  @keyframes rotateRing{
-    from{transform:translateX(-50%) rotate(0deg)}
-    to{transform:translateX(-50%) rotate(360deg)}
-  }
+/* ripple */
+.music-btn::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:0;
+  height:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+  transform:translate(-50%,-50%);
+  opacity:0;
+}
+.music-btn.ripple::after{
+  animation:ripple .55s ease-out;
+}
+@keyframes ripple{
+  from{width:0;height:0;opacity:.7}
+  to{width:240px;height:240px;opacity:0}
+}
 
-  .mini-calendar .ym{
-    display:flex; justify-content:center; gap:10px; align-items:center;
-    margin-bottom:6px; opacity:.95; font-weight:600;
-  }
+/* حالت پخش */
+.music-btn.playing{
+  animation:playPulse 1.6s infinite;
+}
+@keyframes playPulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
 
-  .mini-calendar table{ margin:auto; border-collapse:collapse; }
-  .mini-calendar th, .mini-calendar td{
-    width:22px; height:22px; text-align:center; opacity:.85; font-size:12px;
-  }
-  .mini-calendar th{ font-size:10px; opacity:.6; padding-bottom:4px; }
-  .mini-calendar .heart{ color:#ff4b5c; font-size:14px; line-height:22px; }
+/* ساعت */
+.clock{
+  padding:10px 20px;
+  border-radius:20px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(8px);
+  font-size:14px;
+  box-shadow:0 8px 30px rgba(0,0,0,.6);
+}
 
-  /* برای موبایل کوچک‌تر */
-  @media(max-width:420px){
-    .photo{width:160px;height:160px}
-    .music-btn{width:68px;height:68px;font-size:26px}
-    .mini-calendar{min-width:140px; font-size:11px}
-    .mini-calendar::before{width:120px;height:120px}
-  }
+/* ===== تقویم ===== */
+.mini-calendar{
+  position:fixed;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#fff;
+  text-align:center;
+  font-size:12px;
+  padding:10px 14px;
+  background:rgba(0,0,0,.35);
+  border-radius:14px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 10px 40px rgba(0,0,0,.7);
+  min-width:170px;
+}
+
+/* حلقه شیشه‌ای چرخان */
+.mini-calendar::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-10px;
+  transform:translateX(-50%);
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  border:1px solid transparent;
+  background:
+    linear-gradient(#000,#000) padding-box,
+    linear-gradient(120deg,rgba(255,255,255,.18),rgba(255,255,255,.02)) border-box;
+  animation:rotateRing 10s linear infinite;
+  pointer-events:none;
+}
+@keyframes rotateRing{
+  from{transform:translateX(-50%) rotate(0deg)}
+  to{transform:translateX(-50%) rotate(360deg)}
+}
+
+.mini-calendar .ym{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:6px;
+  font-weight:600;
+}
+
+.mini-calendar table{
+  margin:auto;
+  border-collapse:collapse;
+}
+.mini-calendar th,
+.mini-calendar td{
+  width:22px;
+  height:22px;
+  text-align:center;
+  font-size:12px;
+}
+
+/* قلب شیشه‌ای روی ۱۳ */
+.mini-calendar .heart{
+  position:relative;
+  color:#fff;
+  font-weight:700;
+}
+.mini-calendar .heart::after{
+  content:"❤";
+  position:absolute;
+  top:-6px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:14px;
+  color:rgba(255,80,100,.95);
+  text-shadow:0 0 8px rgba(255,80,100,.9);
+}
+
+/* موبایل */
+@media(max-width:420px){
+  .photo{width:160px;height:160px}
+  .music-btn{width:68px;height:68px;font-size:26px}
+  .mini-calendar{min-width:140px}
+}
 </style>
 </head>
+
 <body>
 
-<!-- ویدئو بک‌گراند (اگر ندارید می‌تونید این تگ رو حذف کنید یا آدرس ویدئو رو بذارید) -->
 <video autoplay muted loop playsinline>
   <source src="Video/VID_20260103_051125_812.mp4" type="video/mp4">
 </video>
-
 <div class="overlay"></div>
 
 <div class="header">🌿 روزت مبارک آقا رضا 🌿</div>
 
 <div class="container">
-  <!-- عکس دایره‌ای -->
-  <img src="Image/IMG_20260103_015659_114.jpg" alt="عکس" class="photo" />
-
-  <!-- دکمه موزیک -->
-  <button class="music-btn" id="musicBtn" aria-label="پخش/توقف موسیقی">▶️</button>
-
-  <!-- ساعت -->
-  <div class="clock" id="clock">ساعت ایران: --:--:--</div>
+  <img src="Image/IMG_20260103_015659_114.jpg" class="photo">
+  <button class="music-btn" id="musicBtn">🎶</button>
+  <div class="clock" id="clock">--:--:--</div>
 </div>
 
-<!-- تقویم وسط پایین — قلب روی روز ۱۳ -->
-<div class="mini-calendar" id="miniCal">
+<div class="mini-calendar">
   <div class="ym"><span>دی</span><span>۱۴۰۴</span></div>
-
-  <table aria-hidden="true">
+  <table>
     <tr><th>ش</th><th>ی</th><th>د</th><th>س</th><th>چ</th><th>پ</th><th>ج</th></tr>
-    <tr>
-      <td></td><td></td><td>۱</td><td>۲</td><td>۳</td><td>۴</td><td>۵</td>
-    </tr>
-    <tr>
-      <td>۶</td><td>۷</td><td>۸</td><td>۹</td><td>۱۰</td><td>۱۱</td><td>۱۲</td>
-    </tr>
-    <tr>
-      <!-- قلب روی ۱۳ -->
-      <td class="heart">۱۳</td><td>۱۴</td><td>۱۵</td><td>۱۶</td><td>۱۷</td><td>۱۸</td><td>۱۹</td>
-    </tr>
-    <tr>
-      <td>۲۰</td><td>۲۱</td><td>۲۲</td><td>۲۳</td><td>۲۴</td><td>۲۵</td><td>۲۶</td>
-    </tr>
-    <tr>
-      <td>۲۷</td><td>۲۸</td><td>۲۹</td><td>۳۰</td><td></td><td></td><td></td>
-    </tr>
+    <tr><td></td><td></td><td>۱</td><td>۲</td><td>۳</td><td>۴</td><td>۵</td></tr>
+    <tr><td>۶</td><td>۷</td><td>۸</td><td>۹</td><td>۱۰</td><td>۱۱</td><td>۱۲</td></tr>
+    <tr><td class="heart">۱۳</td><td>۱۴</td><td>۱۵</td><td>۱۶</td><td>۱۷</td><td>۱۸</td><td>۱۹</td></tr>
+    <tr><td>۲۰</td><td>۲۱</td><td>۲۲</td><td>۲۳</td><td>۲۴</td><td>۲۵</td><td>۲۶</td></tr>
+    <tr><td>۲۷</td><td>۲۸</td><td>۲۹</td><td>۳۰</td><td></td><td></td><td></td></tr>
   </table>
 </div>
 
-<!-- آهنگ (آدرس فایل خودت) -->
 <audio id="music" loop>
-  <source src="Audio/pas-az-baran.mp3" type="audio/mpeg" />
+  <source src="Audio/pas-az-baran.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  // ساعت
-  function updateClock(){
-    const t = new Date().toLocaleTimeString("fa-IR",{timeZone:"Asia/Tehran"});
-    document.getElementById("clock").innerText = "ساعت ایران: " + t;
+const clock = document.getElementById("clock");
+setInterval(()=>{
+  clock.innerText = "ساعت ایران: " +
+    new Date().toLocaleTimeString("fa-IR",{timeZone:"Asia/Tehran"});
+},1000);
+
+const music = document.getElementById("music");
+const btn = document.getElementById("musicBtn");
+
+function ripple(el){
+  el.classList.remove("ripple");
+  void el.offsetWidth;
+  el.classList.add("ripple");
+}
+
+btn.addEventListener("click",()=>{
+  ripple(btn);
+  if(music.paused){
+    music.play();
+    btn.classList.add("playing");
+  }else{
+    music.pause();
+    btn.classList.remove("playing");
   }
-  setInterval(updateClock,1000);
-  updateClock();
-
-  // دکمه موزیک: ripple + pop + حالت playing (pulse)
-  const music = document.getElementById('music');
-  const btn = document.getElementById('musicBtn');
-
-  function doRipple(el){
-    el.classList.remove('ripple');
-    // force reflow to restart animation
-    void el.offsetWidth;
-    el.classList.add('ripple');
-  }
-
-  btn.addEventListener('click', function(e){
-    doRipple(btn);
-    // کوتاه delay تا حسِ ضربه طبیعی‌تر باشه
-    setTimeout(()=>{
-      if (music.paused){
-        music.play().catch(()=>{/* autoplay ممکنه بلوک بشه روی موبایل؛ کاربر باید اول کلیک کند */});
-        btn.classList.add('playing');
-        btn.innerText = '⏸️';
-      } else {
-        music.pause();
-        btn.classList.remove('playing');
-        btn.innerText = '▶️';
-      }
-    }, 80);
-  });
-
-  // اگر می‌خوای هنگام لود صفحه (مثلاً موبایل) دکمه حالت درست نشه تا کاربر اول کلیک کنه
-  // همین الان چیزی اضافی لازم نیست.
-
-  // یک نکته: اگر تصویر/ویدئو/آهنگ در مسیر نبود، محتوای جایگزین (مشکی و متن) نمایش داده می‌شود.
+});
 </script>
 
 </body>
-</html>
+                                                                            </html>
