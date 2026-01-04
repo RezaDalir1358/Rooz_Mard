@@ -23,6 +23,7 @@ body{
   color:#fff;
   overflow:hidden;
   -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
 }
 
 /* ویدیو بک‌گراند */
@@ -33,14 +34,14 @@ video{
   height:100%;
   object-fit:cover;
   filter:blur(3px) brightness(.45);
-  z-index:-5;
+  z-index:-10;
 }
 
 .overlay{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.55);
-  z-index:-4;
+  z-index:-9;
 }
 
 /* تیتر */
@@ -88,36 +89,34 @@ video{
   display:grid;
   place-items:center;
   box-shadow:0 6px 20px rgba(0,0,0,.6);
-  transition:transform .15s ease, box-shadow .15s ease;
+  transition:transform .12s ease, box-shadow .12s ease;
   overflow:hidden;
-
-  /* حذف مربع آبی موبایل */
-  -webkit-tap-highlight-color: transparent;
   outline:none;
 }
-.music-btn:focus{outline:none;}
 
 .music-btn:active{
-  transform:scale(.9);
+  transform:scale(.92);
   box-shadow:0 4px 14px rgba(0,0,0,.8);
 }
 
-/* ripple */
+/* ripple دقیق */
 .music-btn::after{
   content:"";
   position:absolute;
-  left:50%;
-  top:50%;
+  left:var(--x,50%);
+  top:var(--y,50%);
   width:0;
   height:0;
   border-radius:50%;
   background:rgba(255,255,255,.35);
   transform:translate(-50%,-50%);
-  opacity:0;
+  pointer-events:none;
 }
+
 .music-btn.ripple::after{
-  animation:ripple .55s ease-out;
+  animation:ripple .45s ease-out;
 }
+
 @keyframes ripple{
   from{width:0;height:0;opacity:.7}
   to{width:240px;height:240px;opacity:0}
@@ -128,9 +127,7 @@ video{
   animation:playPulse 1.6s infinite;
 }
 @keyframes playPulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.05)}
-  100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
 }
 
 /* ساعت */
@@ -158,14 +155,14 @@ video{
   backdrop-filter:blur(6px);
   box-shadow:0 10px 40px rgba(0,0,0,.7);
   min-width:170px;
+  z-index:5;
 }
 
-/* حلقه شیشه‌ای چرخان */
 .mini-calendar::before{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-10px;
+  bottom:-40px;
   transform:translateX(-50%);
   width:150px;
   height:150px;
@@ -174,11 +171,13 @@ video{
   background:
     linear-gradient(#000,#000) padding-box,
     linear-gradient(120deg,rgba(255,255,255,.18),rgba(255,255,255,.02)) border-box;
-  animation:rotateRing 10s linear infinite;
+  animation:rotateRing 12s linear infinite;
   pointer-events:none;
+  z-index:-1;
+  opacity:.55;
 }
+
 @keyframes rotateRing{
-  from{transform:translateX(-50%) rotate(0deg)}
   to{transform:translateX(-50%) rotate(360deg)}
 }
 
@@ -202,10 +201,9 @@ video{
   font-size:12px;
 }
 
-/* قلب شیشه‌ای روی ۱۳ */
+/* قلب */
 .mini-calendar .heart{
   position:relative;
-  color:#fff;
   font-weight:700;
 }
 .mini-calendar .heart::after{
@@ -262,21 +260,23 @@ video{
 <script>
 const clock = document.getElementById("clock");
 setInterval(()=>{
-  clock.innerText = "ساعت ایران: " +
+  clock.innerText =
+    "ساعت ایران: " +
     new Date().toLocaleTimeString("fa-IR",{timeZone:"Asia/Tehran"});
 },1000);
 
 const music = document.getElementById("music");
 const btn = document.getElementById("musicBtn");
 
-function ripple(el){
-  el.classList.remove("ripple");
-  void el.offsetWidth;
-  el.classList.add("ripple");
-}
+btn.addEventListener("pointerdown",(e)=>{
+  const rect = btn.getBoundingClientRect();
+  btn.style.setProperty("--x",(e.clientX-rect.left)+"px");
+  btn.style.setProperty("--y",(e.clientY-rect.top)+"px");
 
-btn.addEventListener("click",()=>{
-  ripple(btn);
+  btn.classList.remove("ripple");
+  void btn.offsetWidth;
+  btn.classList.add("ripple");
+
   if(music.paused){
     music.play();
     btn.classList.add("playing");
@@ -288,4 +288,4 @@ btn.addEventListener("click",()=>{
 </script>
 
 </body>
-                                                                            </html>
+</html>
